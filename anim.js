@@ -262,7 +262,7 @@ const temporizadorLavender = (delay, id) => {
 
             // Leafs
             for (let i = lavenderPathPointsCount - 2; i < lavenderPathPointsCount; i++) {
-                const lavenderLeafScale = 0.3;
+                const lavenderLeafScale = 0.35;
                 const lavenderLeafSymbol = document.getElementById("stem-symbol");
                 const lavenderLeafViewBox = lavenderLeafSymbol.getAttribute("viewBox");
                 const [, , lavenderLeafViewboxWidth, lavenderLeafViewBoxHeight] = lavenderLeafViewBox.split(" ").map(Number);
