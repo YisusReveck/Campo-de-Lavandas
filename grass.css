@@ -1,0 +1,95 @@
+:root {
+    /* Viewbox del svg */
+    --viewbox-grass-height: 100;
+    --viewbox-grass-width: 20;
+
+    /* ----- Variables para animaciones ----- */
+    /* Duración de la animación de crecimiento */
+    --grow-time-grass: 1.5s;
+    /* Tiempo de retraso hasta empezar a moverse */
+    --sway-delay-grass: 0s;
+    /* Ángulo de oscilación (viento) */
+    --sway-angle-grass: 5deg;
+    /* Duración de un ciclo completo de oscilación */
+    --sway-time-grass: 4s;
+}
+
+.grass-container {
+    display: none;
+    position: absolute;
+    align-items: end;
+    justify-content: center;
+    height: 90px;
+    gap: 5px;
+    transform-origin: bottom center;
+
+    /* Todos calculados desde --depth: */
+    bottom: calc(5% + var(--depth) * 40%);
+    opacity: calc(0.7 - var(--depth) * 0.2);
+    filter: blur(calc(var(--depth) * 3px));
+    z-index: calc(100 - (5 + var(--depth) * 40));
+    transform: translateX(-50%)
+        scaleX(calc(0.9 - var(--depth) * 0.5))
+        scaleY(calc(0.9 - var(--depth) * 0.5));
+}
+
+.grass-container.visible {
+    display: flex;
+}
+
+/* Capa wrapper */
+/* Transform: translate rotate scale final form */
+.grass-wrapper {
+    height: 100%;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* grass-blade */
+/* Controla el movimiento oscilante (efecto de mecerse con el viento) */
+.grass-blade {
+    height: 100%;
+    aspect-ratio: var(--viewbox-grass-width) / var(--viewbox-grass-height);
+    transform-origin: bottom center;
+    animation: swayGrass var(--sway-time-grass) ease-in-out infinite;
+    animation-delay: var(--sway-delay-grass);
+    filter: drop-shadow(0 2px 2px #0000004d);
+    will-change: transform;
+}
+
+/* blade-shape */
+/* Define la forma y controla su animación de crecimiento desde el suelo */
+#blade-shape {
+    transform-origin: bottom center;
+    transform: scaleY(0);
+    opacity: 0;
+    animation: growGrass var(--grow-time-grass) ease-out forwards;
+    animation-delay: var(--sway-delay-grass);
+    will-change: transform, opacity;
+}
+
+/* Animaciones */
+@keyframes growGrass {
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes swayGrass {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(var(--sway-angle-grass));
+    }
+}

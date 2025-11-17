@@ -28,7 +28,7 @@ const temporizadorGrass = (delay, id) => {
     }, delay * 1000);
 }
 
-const createGrass = (id, { opacity = 1, bottom = "0%", left = "0%", zindex = 1, blur = 0, transform = "", bladesCount = 4 } = {}) => {
+const createGrass = (id, { left = "0%", depth = 0, bladesCount = 4 } = {}) => {
     const field = document.getElementById("grass-field");
     if (!field) return console.warn("No existe #grass-field");
 
@@ -37,18 +37,27 @@ const createGrass = (id, { opacity = 1, bottom = "0%", left = "0%", zindex = 1, 
     container.classList.add("grass-container");
     container.id = id;
 
-    // estilos dinámicos
-    container.style.opacity = opacity;
-    container.style.bottom = bottom;
+    // estilos dinámicos mínimos
     container.style.left = left;
-    container.style.filter = `blur(${blur}px)`;
-    container.style.zIndex = zindex;
-    if (transform) container.style.transform = transform;
+    container.style.setProperty("--depth", depth);
 
-    // --- crear múltiples hojas de pasto ---
+    const variants = [
+        { delay: "1.2s", time: "4s", angle: "-4deg", transform: "translate(20px,12px) rotate(-15deg) scale(-0.6,0.8)" },
+        { delay: "0s", time: "3.5s", angle: "-6deg", transform: "translate(0,0) rotate(-5deg) scale(-1,1.2)" },
+        { delay: "0.5s", time: "4s", angle: "7deg", transform: "translate(0,-12px) rotate(0deg) scale(1.3,1.5)" },
+        { delay: "0.8s", time: "3.5s", angle: "5deg", transform: "translate(-20px,5px) rotate(10deg) scale(0.9,1.1)" }
+    ];
+
+    // --- crear múltiples hojas ---
     for (let i = 0; i < bladesCount; i++) {
         const wrapper = document.createElement("div");
         wrapper.classList.add("grass-wrapper");
+
+        const v = variants[i % variants.length];
+        wrapper.style.setProperty("--sway-delay-grass", v.delay);
+        wrapper.style.setProperty("--sway-time-grass", v.time);
+        wrapper.style.setProperty("--sway-angle-grass", v.angle);
+        wrapper.style.transform = v.transform;
 
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.classList.add("grass-blade");
@@ -69,9 +78,8 @@ const createGrass = (id, { opacity = 1, bottom = "0%", left = "0%", zindex = 1, 
 const createGrassField = () => {
     const grassIds = [];
 
-    const isMobile = window.innerWidth < 800; // tú eliges el breakpoint
+    const isMobile = window.innerWidth < 800;
 
-    // Distribución por capas: más pasto en el fondo, menos al frente
     const layers = [
         { count: isMobile ? 6 : 15, depthRange: [0.7, 1.0] },
         { count: isMobile ? 4 : 10, depthRange: [0.4, 0.7] },
@@ -87,43 +95,19 @@ const createGrassField = () => {
             grassIds.push(id);
             grassCounter++;
 
-            // Depth aleatorio dentro del rango de esta capa
-            const [minDepth, maxDepth] = layer.depthRange;
-            const depth = randomInRange(minDepth, maxDepth);
+            const depth = randomInRange(...layer.depthRange);
 
-            // Propiedades basadas en depth (NO cambian)
-            const bottom = 5 + depth * 40; // 5% (frente) a 45% (fondo)
-            const blur = depth * 3; // 0px (frente) a 3px (fondo)
-            const opacity = 0.7 - depth * 0.2; // 0.7 (frente) a 0.5 (fondo)
-            const scale = 0.9 - depth * 0.5; // 0.9 (frente) a 0.4 (fondo)
-            const zindex = Math.round(100 - bottom);
-
-            // Ancho horizontal disponible según la profundidad (forma triangular)
-            // Más profundo = más ancho disponible
-            const maxWidth = 30 + depth * 60; // 30% al frente, 95% al fondo
-            const minLeft = 50 - maxWidth / 2; // Centrado
+            const maxWidth = 30 + depth * 60;
+            const minLeft = 50 - maxWidth / 2;
             const maxLeft = 50 + maxWidth / 2;
-
             const left = randomInRange(minLeft, maxLeft);
 
-            // Variación en la escala
-            const scaleX = Math.random() > 0.5 ? scale : -scale;
-            const scaleY = randomInRange(scale * 0.8, scale * 1.2);
-
-            const bladesCount = 4;
-
             createGrass(id, {
+                depth,
                 left: `${left}%`,
-                bottom: `${bottom}%`,
-                blur: blur,
-                opacity: opacity,
-                zindex: zindex,
-                transform: `translateX(-50%) scaleX(${scaleX}) scaleY(${scaleY})`,
-                bladesCount: bladesCount
+                bladesCount: 4
             });
 
-            // Aparición: del fondo al frente
-            // Los más profundos (depth alto) aparecen primero
             const appearTime = (1 - depth) * 2;
             const randomDelay = randomInRange(0, 0.4);
             temporizadorGrass(appearTime + randomDelay, id);
@@ -132,6 +116,7 @@ const createGrassField = () => {
 
     return grassIds;
 };
+
 
 // Ejecutar
 const grassIds = createGrassField();
@@ -390,8 +375,8 @@ const createLavenderField = () => {
 
             // Ancho horizontal disponible según la profundidad (forma triangular)
             // PERO evitando el centro donde está la lavanda principal
-            const maxWidth = 30 + depth * 55; // 30% al frente, 90% al fondo
-            const centerExclusionZone = 8 - depth * 4; // Zona a evitar: 10% al frente, 2% al fondo
+            const maxWidth = 30 + depth * 60; // 30% al frente, 90% al fondo
+            const centerExclusionZone = 10 - depth * 5; // Zona a evitar: 10% al frente, 2% al fondo
 
             // Decidir si va a la izquierda o derecha del centro
             let left;
