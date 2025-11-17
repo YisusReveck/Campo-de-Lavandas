@@ -25,7 +25,7 @@
 
 body {
     background: var(--bg-gradient);
-    height: 100vh;
+    height: 100dvh;
     width: 95vw;
     max-width: 100%;
     overflow: hidden;
@@ -40,6 +40,10 @@ body {
     transform: scale(0.95);
 }
 
+audio {
+    display: hidden;
+}
+
 #firma {
     position: absolute;
     right: 5%;
@@ -48,8 +52,8 @@ body {
     font-family: "Ephesis";
     font-size: 24px;
     color: white;
-    /* transform: translate(15vw); */
     user-select: none;
+    transform: none;
     animation: fadeIn 4s ease forwards;
     white-space: pre-line;
 }
@@ -58,7 +62,7 @@ body {
     position: absolute;
     right: 5%;
     top: 5%;
-    /* transform: translate(15vw); */
+    transform: none;
     user-select: none;
     pointer-events: auto;
     border: none;
