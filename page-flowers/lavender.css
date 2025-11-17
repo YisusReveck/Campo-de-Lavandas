@@ -1,0 +1,91 @@
+:root {
+    /* Viewbox del svg */
+    --viewbox-lavender-height: 57;
+    --viewbox-lavender-width: 17;
+
+    /* ----- Variables para animaciones ----- */
+    /* Duración de la animación de crecimiento */
+    --grow-time-lavender-stem: 2s;
+    /* Tiempo de retraso hasta empezar a moverse */
+    --sway-delay-lavender: 0s;
+    /* Ángulo de oscilación (viento) */
+    --sway-angle-lavender: 5deg;
+    /* Duración de un ciclo completo de oscilación */
+    --sway-time-lavender: 4s;
+}
+
+/* Contenedor de la Flor completa */
+.lavender-container {
+    display: none;
+    position: absolute;
+    align-items: end;
+    justify-content: center;
+    height: 500px;
+    gap: 5px;
+    transform-origin: bottom center;
+}
+
+.lavender-container.visible {
+    display: flex;
+}
+
+/* Capa wrapper */
+/* Controla el viento y tamaño de la planta */
+.lavender-wrapper {
+    height: 500px;
+    transform-origin: bottom center;
+    animation: swayLavenderStem var(--sway-time-lavender) ease-in-out infinite;
+    animation-delay: var(--sway-delay-lavender);
+    filter: drop-shadow(0 2px 2px #0000004d);
+    will-change: transform;
+    overflow: visible;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+}
+
+/* lavender-stem */
+/* Controla el crecimiento de la planta */
+.lavender-stem {
+    height: 100%;
+    overflow: visible;
+    transform-origin: bottom center;
+    transform: scale(0);
+    opacity: 0;
+    animation: growLavenderStem var(--grow-time-lavender-stem) ease-out forwards;
+    animation-delay: var(--sway-delay-lavender);
+    will-change: transform, opacity;
+}
+
+/* Animaciones */
+@keyframes growLavenderStem {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes swayLavenderStem {
+
+    0%,
+    100% {
+        transform: rotate(var(--sway-angle-lavender));
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+}
+
+#lavender-1 {
+    left: 50%;
+    bottom: 10%;
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateX(-50%) rotate(0deg) scaleX(1) scaleY(1);
+    z-index: 90;
+}

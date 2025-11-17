@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El campo de Mishi</title>
+    <link rel="shortcut icon" href="imgs/cat6-32.png" type="image/x-icon">
+    <link rel="stylesheet" href="page-flowers/index.css">
+    <link rel="stylesheet" href="page-flowers/grass.css">
+    <link rel="stylesheet" href="page-flowers/lavender.css">
+</head>
+
+<body>
+    <div class="svg-defs-container">
+        <svg>
+            <defs>
+                <linearGradient id="grassGradient" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stop-color="rgba(0,255,0,0)" />
+                    <stop offset="80%" stop-color="#4caf50" />
+                    <stop offset="100%" stop-color="#7fff00" />
+                </linearGradient>
+                <linearGradient id="lavenderStemGradient" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stop-color="rgba(85, 60, 20, 0)" /> <!-- base transparente -->
+                    <stop offset="70%" stop-color="#7A8B47" /> <!-- verde oliva/marrón medio -->
+                    <stop offset="100%" stop-color="#A28B56" /> <!-- tono más cálido en la punta -->
+                </linearGradient>
+                <linearGradient id="lavenderLeafGradientA" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(150, 120, 200, 0)" /> <!-- translúcido -->
+                    <stop offset="60%" stop-color="#8057bc" /> <!-- violeta medio azulado -->
+                    <stop offset="100%" stop-color="#60438e" /> <!-- base violeta más oscuro -->
+                </linearGradient>
+                <linearGradient id="lavenderLeafGradientB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(165, 130, 210, 0)" /> <!-- translúcido -->
+                    <stop offset="60%" stop-color="#8D78CF" /> <!-- violeta medio más claro -->
+                    <stop offset="100%" stop-color="#6B58AC" /> <!-- base con más azul -->
+                </linearGradient>
+            </defs>
+        </svg>
+        <svg>
+            <symbol id="grass-blade-symbol" style="--viewbox-grass-width: 20; --viewbox-grass-height: 100"
+                viewBox="0 0 20 100">
+                <path d="M20 0Q10 10 0 100H10Q10 20 20 0" fill="url(#grassGradient)" id="blade-shape" />
+            </symbol>
+            <symbol id="stem-symbol" viewBox="0 0 12 57"
+                style="--viewbox-lavender-width: 12; --viewbox-lavender-height: 57">
+                <path d="M9 0C1 16 12 45 7 57L5 57C9 45 0 16 9 0" fill="url(#lavenderStemGradient)"
+                    id="lavender-stem-shape" />
+            </symbol>
+            <symbol id="lavender-petal-symbol-a"
+                style="--viewbox-lavender-leaf-width: 21; --viewbox-lavender-leaf-height: 28" viewBox="0 0 16 28">
+                <path d="M9 0C9 0 15 16 10 26Q8 28 6 26 0 16 7 0" fill="url(#lavenderLeafGradientA)"
+                    id="lavender-leaf-shape-a" />
+            </symbol>
+            <symbol id="lavender-petal-symbol-b"
+                style="--viewbox-lavender-leaf-width: 21; --viewbox-lavender-leaf-height: 28" viewBox="0 0 16 28">
+                <path d="M9 0C9 0 15 16 10 26Q8 28 6 26 0 16 7 0" fill="url(#lavenderLeafGradientB)"
+                    id="lavender-leaf-shape-b" />
+            </symbol>
+            <symbol id="lavender-sepal-symbol"
+                style="--viewbox-lavender-sepal-width: 22; --viewbox-lavender-sepal-height: 12" viewBox="0 0 22 12">
+                <path d="M11 12C7 6 6 6 0 0 4 1 7 5 8 4 9 3 10 0 11 0 12 0 13 3 14 4 15 5 18 1 22 0 16 6 15 6 11 12"
+                    fill="url(#lavenderStemGradient)" id="lavender-sepal-shape" />
+            </symbol>
+        </svg>
+    </div>
+
+    <audio src="./audio/JVKE - her.mp3" autoplay loop></audio>
+
+    <div id="grass-field">
+    </div>
+
+    <div id="lavender-field">
+        <div class="lavender-container" id="lavender-1">
+            <div class="lavender-wrapper">
+                <svg class="lavender-stem" viewBox="0 0 12 57">
+                    <use href="#stem-symbol" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <pre id="firma">
+        Con cariño, 
+        para Mishi zzz
+    </pre>
+
+    <script src="page-flowers/anim.js"></script>
+</body>
+
+</html>

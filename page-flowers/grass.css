@@ -1,0 +1,113 @@
+:root {
+    /* Viewbox del svg */
+    --viewbox-grass-height: 100;
+    --viewbox-grass-width: 20;
+
+    /* ----- Variables para animaciones ----- */
+    /* Duración de la animación de crecimiento */
+    --grow-time-grass: 1.5s;
+    /* Tiempo de retraso hasta empezar a moverse */
+    --sway-delay-grass: 0s;
+    /* Ángulo de oscilación (viento) */
+    --sway-angle-grass: 5deg;
+    /* Duración de un ciclo completo de oscilación */
+    --sway-time-grass: 4s;
+}
+
+.grass-container {
+    display: none;
+    position: absolute;
+    align-items: end;
+    justify-content: center;
+    height: 90px;
+    gap: 5px;
+    transform-origin: bottom center;
+}
+
+.grass-container.visible {
+    display: flex;
+}
+
+/* Capa wrapper */
+/* Transform: translate rotate scale final form */
+.grass-wrapper {
+    height: 100%;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+}
+
+/* grass-blade */
+/* Controla el movimiento oscilante (efecto de mecerse con el viento) */
+.grass-blade {
+    height: 100%;
+    aspect-ratio: var(--viewbox-grass-width) / var(--viewbox-grass-height);
+    transform-origin: bottom center;
+    animation: swayGrass var(--sway-time-grass) ease-in-out infinite;
+    animation-delay: var(--sway-delay-grass);
+    filter: drop-shadow(0 2px 2px #0000004d);
+    will-change: transform;
+}
+
+/* blade-shape */
+/* Define la forma y controla su animación de crecimiento desde el suelo */
+#blade-shape {
+    transform-origin: bottom center;
+    transform: scaleY(0);
+    opacity: 0;
+    animation: growGrass var(--grow-time-grass) ease-out forwards;
+    animation-delay: var(--sway-delay-grass);
+    will-change: transform, opacity;
+}
+
+/* Animaciones */
+@keyframes growGrass {
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes swayGrass {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(var(--sway-angle-grass));
+    }
+}
+
+.grass-wrapper:nth-child(1n) {
+    --sway-delay-grass: 1.2s;
+    --sway-time-grass: 4s;
+    --sway-angle-grass: -4deg;
+    transform: translate(20px, 12px) rotate(-15deg) scale(-0.6, 0.8);
+}
+
+.grass-wrapper:nth-child(2n) {
+    --sway-delay-grass: 0s;
+    --sway-time-grass: 3.5s;
+    --sway-angle-grass: -6deg;
+    transform: translate(0px, 0px) rotate(-5deg) scale(-1, 1.2)
+}
+
+.grass-wrapper:nth-child(3n) {
+    --sway-delay-grass: 0.5s;
+    --sway-time-grass: 4s;
+    --sway-angle-grass: 7deg;
+    transform: translate(0px, -12px) rotate(0deg) scale(1.3, 1.5)
+}
+
+.grass-wrapper:nth-child(4n) {
+    --sway-delay-grass: 0.8s;
+    --sway-time-grass: 3.5s;
+    --sway-angle-grass: 5deg;
+    transform: translate(-20px, 5px) rotate(10deg) scale(0.9, 1.1)
+}

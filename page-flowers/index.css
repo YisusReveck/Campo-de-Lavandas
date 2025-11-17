@@ -1,0 +1,60 @@
+@font-face {
+    font-family: "Ephesis";
+    src: url("../fonts/Ephesis-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --bg-gradient: radial-gradient(circle at top, #214641 0%, #102421 30%, #0c0c0c 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.svg-defs-container {
+    display: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+body {
+    background: var(--bg-gradient);
+    height: 100dvh;
+    width: 60dvw;
+    overflow: hidden;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+}
+
+#firma {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    text-align: center;
+    font-family: "Ephesis";
+    font-size: 24px;
+    color: white;
+    transform: translate(15dvw);
+}
+
+@media (max-width: 767px) {
+    body {
+        transform: scale(0.95);
+        width: 90dvw;
+    }
+
+    #firma {
+        transform: translate(0);
+    }
+}
