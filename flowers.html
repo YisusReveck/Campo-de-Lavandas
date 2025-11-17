@@ -65,7 +65,7 @@
         </svg>
     </div>
 
-    <audio src="./audio/JVKE - her.mp3" autoplay loop></audio>
+    <audio id="song" src="./audio/JVKE - her.mp3" autoplay loop></audio>
 
     <div id="grass-field">
     </div>
@@ -85,7 +85,17 @@
         para Mishi zzz
     </pre>
 
+    <button id="audioBtn">
+        <svg id="iconPlay" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <svg id="iconPause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 4h4v16H7zM13 4h4v16h-4z"></path>
+        </svg>
+    </button>
+
     <script src="page-flowers/anim.js"></script>
+    <script src="page-flowers/audio.js"></script>
 </body>
 
 </html>

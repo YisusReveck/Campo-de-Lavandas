@@ -69,12 +69,16 @@ const createGrass = (id, { opacity = 1, bottom = "0%", left = "0%", zindex = 1, 
 const createGrassField = () => {
     const grassIds = [];
 
+    const isMobile = window.innerWidth < 800; // tú eliges el breakpoint
+
+    const division = isMobile ? 2 : 1;
+
     // Distribución por capas: más pasto en el fondo, menos al frente
     const layers = [
-        { count: 15, depthRange: [0.7, 1.0] },   // Fondo: 15 pastos
-        { count: 12, depthRange: [0.4, 0.7] },   // Medio-fondo: 12 pastos
-        { count: 8, depthRange: [0.2, 0.4] },    // Medio-frente: 8 pastos
-        { count: 5, depthRange: [0.0, 0.2] }     // Frente: 5 pastos
+        { count: 16/division, depthRange: [0.7, 1.0] },   // Fondo: 15 pastos
+        { count: 12/division, depthRange: [0.4, 0.7] },   // Medio-fondo: 12 pastos
+        { count: 8/division, depthRange: [0.2, 0.4] },    // Medio-frente: 8 pastos
+        { count: 4/division, depthRange: [0.0, 0.2] }     // Frente: 5 pastos
     ];
 
     let grassCounter = 1;
@@ -357,12 +361,16 @@ const createLavender = (id, { opacity = 1, bottom = "0%", left = "0%", zindex = 
 const createLavenderField = () => {
     const lavenderIds = ["lavender-1"]; // La principal ya existe en el centro (50%)
 
+    const isMobile = window.innerWidth < 800; // tú eliges el breakpoint
+
+    const division = isMobile ? 2 : 1;
+
     // Distribución por capas: más lavandas en el fondo, menos al frente
     const layers = [
-        { count: 8, depthRange: [0.7, 1.0] },   // Fondo: 10 lavandas
-        { count: 6, depthRange: [0.4, 0.7] },    // Medio-fondo: 8 lavandas
-        { count: 4, depthRange: [0.2, 0.4] },    // Medio-frente: 5 lavandas
-        { count: 2, depthRange: [0.0, 0.2] }     // Frente: 3 lavandas
+        { count: 8/division, depthRange: [0.7, 1.0] },   // Fondo: 10 lavandas
+        { count: 6/division, depthRange: [0.4, 0.7] },    // Medio-fondo: 8 lavandas
+        { count: 4/division, depthRange: [0.2, 0.4] },    // Medio-frente: 5 lavandas
+        { count: 2/division, depthRange: [0.0, 0.2] }     // Frente: 3 lavandas
     ];
 
     let lavenderCounter = 2;
