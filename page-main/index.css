@@ -5,23 +5,46 @@
 }
 
 body {
+    background-color: #0c0c0c;
+    height: 100vh;
+    width: 100vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: radial-gradient(circle at top, #0a0a0a 0%, #111 60%, #0c0c0c 100%);
     color: #fafafa;
     line-height: 1.6;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+}
+
+main {
+    background: radial-gradient(circle at center, #141414 0%, #111111 40%, #000000 100%);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ✨ Animación tipo glitch o "parpadeo de neón" */
 @keyframes neonGlow {
-    0%, 100% { text-shadow: 0 0 5px #00afff, 0 0 10px #00afff, 0 0 20px #00afff; }
-    50% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px #00afff, 0 0 10px #00afff, 0 0 20px #00afff;
+    }
+
+    50% {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .description {
@@ -36,29 +59,62 @@ body {
     position: relative;
     animation: neonGlow 3s ease-in-out infinite;
     user-select: none;
+    padding: 0 20px;
 }
 
-/* @keyframes pulseLine {
-    0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
-    50% { opacity: 1; transform: scaleX(1.1); }
+.description .word {
+    display: inline-block;
+    white-space: nowrap;
 }
 
-.description::before,
-.description::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 70px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #00afff, transparent);
-    animation: pulseLine 2s infinite ease-in-out;
+.description .char {
+    display: inline-block;
+    position: relative;
 }
 
-.description::before { left: -90px; }
-.description::after { right: -90px; } */
+.description .char.glitch {
+    animation: glitchChar 0.1s linear;
+}
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@keyframes neonGlow {
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 10px #00bfff,
+            0 0 20px #00bfff,
+            0 0 30px #00bfff;
+    }
+
+    50% {
+        text-shadow:
+            0 0 20px #00bfff,
+            0 0 30px #00bfff,
+            0 0 40px #00bfff,
+            0 0 50px #00bfff;
+    }
+}
+
+@keyframes glitchChar {
+
+    0%,
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translate(-2px, 2px);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translate(2px, -2px);
+        opacity: 0.9;
+    }
+
+    75% {
+        transform: translate(-1px, -1px);
+        opacity: 0.85;
+    }
 }

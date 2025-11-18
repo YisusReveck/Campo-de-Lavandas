@@ -1,16 +1,16 @@
 const audio = document.getElementById("song");
 const btn = document.getElementById("audioBtn");
-const iconPlay = document.getElementById("iconPlay");
-const iconPause = document.getElementById("iconPause");
+const iconSoundOn = document.getElementById("iconSoundOn");
+const iconSoundOff = document.getElementById("iconSoundOff");
 
 // Cambia el texto del botón según el estado
 function updateButton() {
     if (audio.paused) {
-        iconPlay.style.display = "block";
-        iconPause.style.display = "none";
+        iconSoundOn.style.display = "block";
+        iconSoundOff.style.display = "none";
     } else {
-        iconPlay.style.display = "none";
-        iconPause.style.display = "block";
+        iconSoundOn.style.display = "none";
+        iconSoundOff.style.display = "block";
     }
 }
 

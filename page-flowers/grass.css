@@ -12,6 +12,11 @@
     --sway-angle-grass: 5deg;
     /* Duración de un ciclo completo de oscilación */
     --sway-time-grass: 4s;
+
+    --wind-base-angle: 10deg;
+    /* movimiento sutil — puedes subir a 6deg */
+    --wind-speed: 4s;
+    /* velocidad del viento */
 }
 
 .grass-container {
@@ -22,6 +27,19 @@
     height: 90px;
     gap: 5px;
     transform-origin: bottom center;
+
+    /* Todos calculados desde --depth: */
+    bottom: calc(5% + var(--depth) * 40%);
+    opacity: calc(0.7 - var(--depth) * 0.2);
+    filter: blur(calc(var(--depth) * 3px));
+    z-index: calc(100 - (5 + var(--depth) * 40));
+    transform: translateX(-50%) scaleX(calc(0.9 - var(--depth) * 0.5)) scaleY(calc(0.9 - var(--depth) * 0.5));
+
+    /* Ángulo depende de la profundidad (más lejos → menos movimiento) */
+    --wind-angle: calc(var(--wind-base-angle) * (1 - var(--depth)*0.4));
+
+    animation: windSway var(--wind-speed) ease-in-out infinite;
+    animation-delay: calc(var(--depth) * -2s);
 }
 
 .grass-container.visible {
@@ -34,6 +52,7 @@
     height: 100%;
     transform-origin: bottom center;
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 /* grass-blade */
@@ -41,11 +60,11 @@
 .grass-blade {
     height: 100%;
     aspect-ratio: var(--viewbox-grass-width) / var(--viewbox-grass-height);
-    transform-origin: bottom center;
+    filter: drop-shadow(0 2px 2px #0000004d);
+    /* transform-origin: bottom center;
     animation: swayGrass var(--sway-time-grass) ease-in-out infinite;
     animation-delay: var(--sway-delay-grass);
-    filter: drop-shadow(0 2px 2px #0000004d);
-    will-change: transform;
+    will-change: transform; */
 }
 
 /* blade-shape */
@@ -84,30 +103,14 @@
     }
 }
 
-.grass-wrapper:nth-child(1n) {
-    --sway-delay-grass: 1.2s;
-    --sway-time-grass: 4s;
-    --sway-angle-grass: -4deg;
-    transform: translate(20px, 12px) rotate(-15deg) scale(-0.6, 0.8);
-}
+@keyframes windSway {
 
-.grass-wrapper:nth-child(2n) {
-    --sway-delay-grass: 0s;
-    --sway-time-grass: 3.5s;
-    --sway-angle-grass: -6deg;
-    transform: translate(0px, 0px) rotate(-5deg) scale(-1, 1.2)
-}
+    0%,
+    100% {
+        transform: translateX(-50%) scaleX(calc(0.9 - var(--depth) * 0.5)) scaleY(calc(0.9 - var(--depth) * 0.5)) skewX(0deg);
+    }
 
-.grass-wrapper:nth-child(3n) {
-    --sway-delay-grass: 0.5s;
-    --sway-time-grass: 4s;
-    --sway-angle-grass: 7deg;
-    transform: translate(0px, -12px) rotate(0deg) scale(1.3, 1.5)
-}
-
-.grass-wrapper:nth-child(4n) {
-    --sway-delay-grass: 0.8s;
-    --sway-time-grass: 3.5s;
-    --sway-angle-grass: 5deg;
-    transform: translate(-20px, 5px) rotate(10deg) scale(0.9, 1.1)
+    50% {
+        transform: translateX(-50%) scaleX(calc(0.9 - var(--depth) * 0.5)) scaleY(calc(0.9 - var(--depth) * 0.5)) skewX(var(--wind-angle));
+    }
 }
